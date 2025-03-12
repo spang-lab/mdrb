@@ -1,0 +1,48 @@
+Package: mdrb
+Title: Metabodecon Rust Backend
+Version: 0.0.0.9001
+Authors@R: c(
+    person(given = "Tobias",
+           family = "Schmidt",
+           role = c("aut", "cre", "cph"),
+           email = "tobias.schmidt331@gmail.com"),
+    person(given = "Maximilian",
+           family = "Sombke",
+           role = c("aut", "cph"),
+           email = "sombkemaximilian@gmail.com"),
+    person(given = "Wolfram",
+           family = "Gronwald",
+           role = c("aut", "cph"),
+           email = "wolfram.gronwald@klinik.uni-regensburg.de")
+    )
+Description: Provides a high-performance Rust backend for the
+    'metabodecon' package
+    (<https://github.com/spang-lab/metabodecon>), enabling
+    efficient deconvolution, alignment, and post-processing of
+    1-dimensional (1D) nuclear magnetic resonance (NMR) spectra.
+    The package wraps optimized Rust functions to improve
+    performance and scalability for large datasets. The
+    recommended way to use *mdrb* is by installing *metabodecon*
+    and setting the backend argument to "rust" when calling its
+    functions. The Rust part of the package is based on the
+    'metabodecon-rust' crate
+    (<https://github.com/SombkeMaximilian/metabodecon-rust>).
+License: GPL (>= 3)
+URL: https://github.com/spang-lab/mdrb/, https://spang-lab.github.io/mdrb/
+BugReports: https://github.com/spang-lab/mdrb/issues
+biocViews: NMR, Deconvolution
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 3.5.0)
+Suggests:
+    metabodecon,
+    devtools,
+    rextendr,
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/testthat/parallel: true
+BuildManual: TRUE
+Language: en-US
+Config/rextendr/version: 0.3.1.9001
+SystemRequirements: Cargo (Rust's package manager), rustc (>= 1.78.0)
