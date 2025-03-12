@@ -9,6 +9,7 @@ pub(crate) struct Deconvoluter {
     inner: deconvolution::Deconvoluter,
 }
 
+/// @eval make_r_docs("Deconvoluter")
 #[extendr]
 impl Deconvoluter {
     pub(crate) fn new() -> Self {

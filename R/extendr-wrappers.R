@@ -10,6 +10,7 @@
 #' @useDynLib mdrb, .registration = TRUE
 NULL
 
+#' @eval make_r_docs("Deconvoluter")
 Deconvoluter <- new.env(parent = emptyenv())
 
 Deconvoluter$new <- function() .Call(wrap__Deconvoluter__new)
@@ -48,22 +49,7 @@ Deconvoluter$optimize_settings <- function(reference) .Call(wrap__Deconvoluter__
 #' @export
 `[[.Deconvoluter` <- `$.Deconvoluter`
 
-#' @export
-#' @title Deconvolution Class
-#' @description A deconvolution object. See 'Examples' for a list of supported methods.
-#' @examples
-#'
-#' x <- Deconvolution$new()
-#'
-#' # Supported Methods
-#' # x$mse()
-#' # x$superposition(chemical_shift)
-#' # x$superposition_vec(chemical_shifts)
-#' # x$par_superposition_vec(chemical_shifts)
-#' # x$write_json(path)
-#' # x$read_json(path)
-#' # x$write_bin(path)
-#' # x$read_bin(path)
+#' @eval make_r_docs("Deconvolution")
 Deconvolution <- new.env(parent = emptyenv())
 
 Deconvolution$lorentzians <- function() .Call(wrap__Deconvolution__lorentzians, self)
@@ -84,18 +70,13 @@ Deconvolution$write_bin <- function(path) invisible(.Call(wrap__Deconvolution__w
 
 Deconvolution$read_bin <- function(path) .Call(wrap__Deconvolution__read_bin, path)
 
-#' @rdname Deconvolution
-#' @usage NULL
 #' @export
 `$.Deconvolution` <- function (self, name) { func <- Deconvolution[[name]]; environment(func) <- environment(); func }
 
 #' @export
 `[[.Deconvolution` <- `$.Deconvolution`
 
-#' @export
-#' @title Lorentzian
-#' @description A single Lorentzian function.
-#' 
+#' @eval make_r_docs("Lorentzian")
 Lorentzian <- new.env(parent = emptyenv())
 
 Lorentzian$new <- function(sf, hw, maxp) .Call(wrap__Lorentzian__new, sf, hw, maxp)
@@ -122,14 +103,13 @@ Lorentzian$superposition_vec <- function(x, sf, hw, maxp) .Call(wrap__Lorentzian
 
 Lorentzian$par_superposition_vec <- function(x, sf, hw, maxp) .Call(wrap__Lorentzian__par_superposition_vec, x, sf, hw, maxp)
 
-#' @rdname Lorentzian
-#' @usage NULL
 #' @export
 `$.Lorentzian` <- function (self, name) { func <- Lorentzian[[name]]; environment(func) <- environment(); func }
 
 #' @export
 `[[.Lorentzian` <- `$.Lorentzian`
 
+#' @eval make_r_docs("Spectrum")
 Spectrum <- new.env(parent = emptyenv())
 
 Spectrum$new <- function(chemical_shifts, intensities, signal_boundaries) .Call(wrap__Spectrum__new, chemical_shifts, intensities, signal_boundaries)

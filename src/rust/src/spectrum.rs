@@ -48,6 +48,7 @@ impl Spectrum {
     }
 }
 
+/// @eval make_r_docs("Spectrum")
 #[extendr]
 impl Spectrum {
     pub(crate) fn new(

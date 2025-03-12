@@ -36,10 +36,7 @@ impl Lorentzian {
     }
 }
 
-/// @export
-/// @title Lorentzian
-/// @description A single Lorentzian function.
-/// 
+/// @eval make_r_docs("Lorentzian")
 #[extendr]
 impl Lorentzian {
     pub(crate) fn new(sf: f64, hw: f64, maxp: f64) -> Self {

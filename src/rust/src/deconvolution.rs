@@ -19,22 +19,7 @@ impl From<deconvolution::Deconvolution> for Deconvolution {
     }
 }
 
-/// @export
-/// @title Deconvolution Class
-/// @description A deconvolution object. See 'Examples' for a list of supported methods.
-/// @examples
-///
-/// x <- Deconvolution$new()
-///
-/// # Supported Methods
-/// # x$mse()
-/// # x$superposition(chemical_shift)
-/// # x$superposition_vec(chemical_shifts)
-/// # x$par_superposition_vec(chemical_shifts)
-/// # x$write_json(path)
-/// # x$read_json(path)
-/// # x$write_bin(path)
-/// # x$read_bin(path)
+/// @eval make_r_docs("Deconvolution")
 #[extendr]
 impl Deconvolution {
     pub(crate) fn lorentzians(&self) -> Result<List> {
