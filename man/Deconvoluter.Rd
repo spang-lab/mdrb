@@ -8,7 +8,15 @@
 An object of class \code{environment} of length 15.
 }
 \usage{
-x <- Deconvoluter$new()  
+Deconvoluter
+}
+\description{
+Environment containing methods for the Deconvoluter class.
+}
+\section{Methods}{
+
+
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{x <- Deconvoluter$new()  
 x$add_ignore_region(start, end)  
 x$clear_ignore_regions()  
 x$deconvolute_spectra(spectra)  
@@ -22,13 +30,11 @@ x$selection_settings()
 x$set_analytical_fitter(iterations)  
 x$set_moving_average_smoother(iterations, window_size)  
 x$set_noise_score_selector(threshold)  
-x$smoothing_settings()
-}
-\description{
-Environment containing methods for the Deconvoluter class.
-}
-\details{
+x$smoothing_settings()  
+}\if{html}{\out{</div>}}
+
 For more information on the methods, see the Rust documentation at
 \url{https://github.com/SombkeMaximilian/metabodecon-rust}.
 }
+
 \keyword{datasets}

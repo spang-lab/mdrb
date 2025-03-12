@@ -8,7 +8,15 @@
 An object of class \code{environment} of length 9.
 }
 \usage{
-# Assuming x is an object of class Deconvolution
+Deconvolution
+}
+\description{
+Environment containing methods for the Deconvolution class.
+}
+\section{Methods}{
+
+
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{# Assuming x is an object of class Deconvolution
 x$lorentzians()  
 x$mse()  
 x$par_superposition_vec(chemical_shifts)  
@@ -17,13 +25,11 @@ x$read_json(path)
 x$superposition(chemical_shift)  
 x$superposition_vec(chemical_shifts)  
 x$write_bin(path)  
-x$write_json(path)
-}
-\description{
-Environment containing methods for the Deconvolution class.
-}
-\details{
+x$write_json(path)  
+}\if{html}{\out{</div>}}
+
 For more information on the methods, see the Rust documentation at
 \url{https://github.com/SombkeMaximilian/metabodecon-rust}.
 }
+
 \keyword{datasets}

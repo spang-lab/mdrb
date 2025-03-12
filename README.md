@@ -21,35 +21,28 @@ pak::pkg_install("spang-lab/mdrb")
 
 ## Usage
 
- *mdrb* is supposed to be used in combination with *metabodecon*. For example, to deconvolute a spectrum using the Rust backend, you can use the following code:
+*mdrb* is primarily intended to be used through the frontend functions provided by the *metabodecon* package. However, if you prefer to use the package directly, you can follow the example below:
 
 ```R
-# Load spectra using metabodecon
-spectra <- metabodecon::read_spectra("misc/example_datasets/bruker/blood", "bruker", 10, 10)
+spectrum_path <- metabodecon::metabodecon_file("bruker/urine/urine_1")
+r_spectrum <- metabodecon::read_spectrum(spectrum_path)
 
-# Deconvopute a single spectrum using mdrb
-rust_deconvolution <- mdrb::deconvolute_rust(
-    spectra[[1]],
-    sfr = c(-2.2, 11.8),
-    nfit = 10,
-    smopts = c(2, 5),
-    delta = 6.4,
-    ignore_regions = c(4.7, 4.9),
-    parallel = TRUE,
-    optimize_settings = FALSE
+rust_spectrum <- Spectrum$new(
+    chemical_shifts = r_spectrum$cs,
+    intensities = r_spectrum$si,
+    signal_boundaries = quantile(r_spectrum$cs, c(0.1, 0.9))
 )
 
-# Deconvolute multiple spectra using mdrb
-rust_deconvolutions <- multi_deconvolute_rust(
-    spectra,
-    sfr = c(-2.2, 11.8),
-    nfit = 10,
-    smopts = c(2, 5),
-    delta = 6.4,
-    ignore_regions = c(4.7, 4.9),
-    parallel = TRUE,
-    optimize_settings = FALSE
-)
+deconvoluter <- Deconvoluter$new()
+deconvoluter$set_moving_average_smoother(iterations = 4, window_size = 3)
+deconvoluter$set_noise_score_selector(6.4)
+deconvoluter$set_analytical_fitter(iterations = 5)
+
+deconvolution <- deconvoluter$deconvolute_spectrum(rust_spectrum)
+
+lorentzians <- deconvolution$lorentzians()
+superposition_vec <- deconvolution$superposition_vec()
+mse <- deconvolution$mse()
 ```
 
 ## Documentation
@@ -63,4 +56,3 @@ Since *mdrb* is mostly intended as dependency of *metabodecon* and not for direc
 ## Contributing
 
 See [CONTRBUTING.md](CONTRIBUTING.md).
-

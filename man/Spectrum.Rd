@@ -8,7 +8,15 @@
 An object of class \code{environment} of length 18.
 }
 \usage{
-x <- Spectrum$new(chemical_shifts, intensities, signal_boundaries)  
+Spectrum
+}
+\description{
+Environment containing methods for the Spectrum class.
+}
+\section{Methods}{
+
+
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{x <- Spectrum$new(chemical_shifts, intensities, signal_boundaries)  
 x$chemical_shifts()  
 x$frequency()  
 x$intensities()  
@@ -25,13 +33,11 @@ x$set_reference_compound(reference)
 x$set_signal_boundaries(signal_boundaries)  
 x$signal_boundaries()  
 x$write_bin(path)  
-x$write_json(path)
-}
-\description{
-Environment containing methods for the Spectrum class.
-}
-\details{
+x$write_json(path)  
+}\if{html}{\out{</div>}}
+
 For more information on the methods, see the Rust documentation at
 \url{https://github.com/SombkeMaximilian/metabodecon-rust}.
 }
+
 \keyword{datasets}
