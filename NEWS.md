@@ -1,7 +1,15 @@
-# v0.0.0.9003
+# mdrb 0.0.1
 
-Added pkgdown site.
+- No changes except bump to version 0.0.1 (to comply with semantic versioning).
 
-# v0.0.0.9002
+# mdrb 0.0.0.9004
 
-Initial version.
+- Improved formatting of README.md and NEWS.md.
+
+# mdrb 0.0.0.9003
+
+- Added pkgdown site.
+
+# mdrb 0.0.0.9002
+
+- Initial version.

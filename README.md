@@ -5,7 +5,7 @@
 
 Provides a high-performance Rust backend for the [metabodecon](https://github.com/spang-lab/metabodecon) package, enabling efficient deconvolution, alignment, and post-processing of 1D NMR spectra. The package wraps optimized Rust functions to improve performance and scalability for large datasets. The recommended way to use *mdrb* is by installing *metabodecon* and setting the backend argument to "rust" when calling its functions. The Rust part of the package is based on the [metabodecon-rust](https://github.com/SombkeMaximilian/metabodecon-rust) crate.
 
-⚠️ Attention: this package is experimental and its API is subject to change. When using in scripts and/or packages make sure to check the exact version first. ⚠️
+⚠️ Attention: this package is experimental and its API is subject to change. When using in scripts and/or packages make sure to check the exact version first.
 
 ## Installation
 
