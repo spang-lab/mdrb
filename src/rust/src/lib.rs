@@ -1,5 +1,6 @@
 use extendr_api::prelude::*;
 
+mod aligner;
 mod deconvoluter;
 mod deconvolution;
 mod lorentzian;
