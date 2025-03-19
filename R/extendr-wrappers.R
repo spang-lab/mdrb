@@ -10,6 +10,18 @@
 #' @useDynLib mdrb, .registration = TRUE
 NULL
 
+Aligner <- new.env(parent = emptyenv())
+
+Aligner$new <- function(max_distance, min_similarity) .Call(wrap__Aligner__new, max_distance, min_similarity)
+
+Aligner$align_deconvolutions <- function(deconvolutions) .Call(wrap__Aligner__align_deconvolutions, self, deconvolutions)
+
+#' @export
+`$.Aligner` <- function (self, name) { func <- Aligner[[name]]; environment(func) <- environment(); func }
+
+#' @export
+`[[.Aligner` <- `$.Aligner`
+
 #' @eval make_r_docs("Deconvoluter")
 Deconvoluter <- new.env(parent = emptyenv())
 
@@ -139,6 +151,8 @@ Spectrum$read_bruker <- function(path, experiment, processing, signal_boundaries
 Spectrum$read_bruker_set <- function(path, experiment, processing, signal_boundaries) .Call(wrap__Spectrum__read_bruker_set, path, experiment, processing, signal_boundaries)
 
 Spectrum$read_jcampdx <- function(path, signal_boundaries) .Call(wrap__Spectrum__read_jcampdx, path, signal_boundaries)
+
+Spectrum$read_jcampdx_set <- function(path, signal_boundaries) .Call(wrap__Spectrum__read_jcampdx_set, path, signal_boundaries)
 
 Spectrum$write_json <- function(path) invisible(.Call(wrap__Spectrum__write_json, self, path))
 

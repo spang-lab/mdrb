@@ -5,7 +5,7 @@
 \alias{Spectrum}
 \title{Spectrum Class}
 \format{
-An object of class \code{environment} of length 18.
+An object of class \code{environment} of length 19.
 }
 \usage{
 Spectrum
@@ -25,6 +25,7 @@ x$read_bin(path)
 x$read_bruker(path, experiment, processing, signal_boundaries)  
 x$read_bruker_set(path, experiment, processing, signal_boundaries)  
 x$read_jcampdx(path, signal_boundaries)  
+x$read_jcampdx_set(path, signal_boundaries)  
 x$read_json(path)  
 x$reference_compound()  
 x$set_frequency(frequency)  

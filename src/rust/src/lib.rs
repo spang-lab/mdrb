@@ -8,6 +8,7 @@ mod spectrum;
 
 extendr_module! {
     mod mdrb;
+    use aligner;
     use deconvoluter;
     use deconvolution;
     use lorentzian;
