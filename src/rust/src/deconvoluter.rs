@@ -159,7 +159,7 @@ impl Deconvoluter {
         self.inner.clear_ignore_regions();
     }
 
-    /// WARNING: These persist when the object is copied, meaning that two
+    /// WARNING: These persist when the object is cloned, meaning that two
     /// Deconvoluter objects can share the same thread pool.
     pub(crate) fn set_threads(&mut self, threads: usize) {
         if threads <= 1 {
