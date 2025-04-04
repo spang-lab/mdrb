@@ -37,6 +37,10 @@ Deconvoluter$add_ignore_region <- function(start, end) invisible(.Call(wrap__Dec
 
 Deconvoluter$clear_ignore_regions <- function() invisible(.Call(wrap__Deconvoluter__clear_ignore_regions, self))
 
+Deconvoluter$set_threads <- function(threads) invisible(.Call(wrap__Deconvoluter__set_threads, self, threads))
+
+Deconvoluter$clear_threads <- function() invisible(.Call(wrap__Deconvoluter__clear_threads, self))
+
 Deconvoluter$deconvolute_spectrum <- function(spectrum) .Call(wrap__Deconvoluter__deconvolute_spectrum, self, spectrum)
 
 Deconvoluter$par_deconvolute_spectrum <- function(spectrum) .Call(wrap__Deconvoluter__par_deconvolute_spectrum, self, spectrum)

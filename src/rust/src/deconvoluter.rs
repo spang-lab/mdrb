@@ -3,10 +3,13 @@ use crate::spectrum::Spectrum;
 use extendr_api::prelude::*;
 use metabodecon::deconvolution;
 use std::collections::HashMap;
+use rayon::{ThreadPool, ThreadPoolBuilder};
+use std::sync::Arc;
 
 #[derive(Clone, Debug, Default)]
 pub(crate) struct Deconvoluter {
     inner: deconvolution::Deconvoluter,
+    threads: Option<Arc<ThreadPool>>
 }
 
 /// @eval make_r_docs("Deconvoluter")
@@ -156,6 +159,27 @@ impl Deconvoluter {
         self.inner.clear_ignore_regions();
     }
 
+    /// WARNING: These persist when the object is copied, meaning that two
+    /// Deconvoluter objects can share the same thread pool.
+    pub(crate) fn set_threads(&mut self, threads: usize) {
+        if threads <= 1 {
+            throw_r_error("number of threads must be greater than 1");
+        } else {
+            let thread_pool = match ThreadPoolBuilder::new()
+                .num_threads(threads)
+                .build()
+            {
+                Ok(thread_pool) => thread_pool,
+                Err(error) => throw_r_error(error.to_string()),
+            };
+            self.threads = Some(Arc::new(thread_pool));
+        }
+    }
+
+    pub(crate) fn clear_threads(&mut self) {
+        self.threads = None;
+    }
+
     pub(crate) fn deconvolute_spectrum(&self, spectrum: &Spectrum) -> Deconvolution {
         match self.inner.deconvolute_spectrum(spectrum.as_ref()) {
             Ok(deconvolution) => deconvolution.into(),
@@ -164,7 +188,14 @@ impl Deconvoluter {
     }
 
     pub(crate) fn par_deconvolute_spectrum(&self, spectrum: &Spectrum) -> Deconvolution {
-        match self.inner.par_deconvolute_spectrum(spectrum.as_ref()) {
+        let deconvolution = match &self.threads {
+            Some(threads) => threads.install(|| {
+                self.inner.par_deconvolute_spectrum(spectrum.as_ref())
+            }),
+            None => self.inner.par_deconvolute_spectrum(spectrum.as_ref()),
+        };
+
+        match deconvolution {
             Ok(deconvolution) => deconvolution.into(),
             Err(error) => throw_r_error(error.to_string()),
         }
@@ -191,7 +222,13 @@ impl Deconvoluter {
             Ok(spectra) => spectra,
             Err(error) => throw_r_error(error.to_string()),
         };
-        let deconvolutions = match self.inner.par_deconvolute_spectra(&spectra) {
+        let deconvolutions = match &self.threads {
+            Some(threads) => threads.install(|| {
+                self.inner.par_deconvolute_spectra(&spectra)
+            }),
+            None => self.inner.par_deconvolute_spectra(&spectra),
+        };
+        let deconvolutions = match deconvolutions {
             Ok(deconvolutions) => deconvolutions
                 .into_iter()
                 .map(|deconvolution| deconvolution.into())
