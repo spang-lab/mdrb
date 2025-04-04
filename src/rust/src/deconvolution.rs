@@ -49,12 +49,12 @@ impl Deconvolution {
     }
 
     pub(crate) fn superposition_vec(&self, chemical_shifts: Vec<f64>) -> Vec<f64> {
-        deconvolution::Lorentzian::superposition_vec(&*chemical_shifts, self.inner.lorentzians())
+        deconvolution::Lorentzian::superposition_vec(&chemical_shifts, self.inner.lorentzians())
     }
 
     pub(crate) fn par_superposition_vec(&self, chemical_shifts: Vec<f64>) -> Vec<f64> {
         deconvolution::Lorentzian::par_superposition_vec(
-            &*chemical_shifts,
+            &chemical_shifts,
             self.inner.lorentzians(),
         )
     }

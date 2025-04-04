@@ -41,10 +41,10 @@ impl TryFrom<&Robj> for Spectrum {
 impl Spectrum {
     pub(crate) fn recover_list(spectra: &List) -> Result<Vec<Spectrum>> {
         spectra
-        .to_vec()
-        .iter()
-        .map(|r_obj| r_obj.try_into())
-        .collect::<Result<Vec<Spectrum>>>()
+            .to_vec()
+            .iter()
+            .map(|r_obj| r_obj.try_into())
+            .collect::<Result<Vec<Spectrum>>>()
     }
 }
 
@@ -95,17 +95,12 @@ impl Spectrum {
         let chemical_shift = reference.chemical_shift();
         let index = reference.index();
         let name = reference.name();
-        let referencing_method = reference
-            .referencing_method()
-            .map(|method| method.to_string());
+        let method = reference.method().map(|method| method.to_string());
         let mut result = HashMap::<&str, Robj>::new();
         result.insert("chemical_shift", chemical_shift.into());
         result.insert("index", index.into());
         result.insert("name", Nullable::from(name).into());
-        result.insert(
-            "referencing_method",
-            Nullable::from(referencing_method).into(),
-        );
+        result.insert("method", Nullable::from(method).into());
 
         List::from_hashmap(result)
     }
@@ -123,8 +118,7 @@ impl Spectrum {
     }
 
     pub(crate) fn set_nucleus(&mut self, nucleus: &str) {
-        self.inner
-            .set_nucleus(std::str::FromStr::from_str(nucleus).unwrap());
+        self.inner.set_nucleus(nucleus);
     }
 
     pub(crate) fn set_frequency(&mut self, frequency: f64) {
@@ -148,8 +142,7 @@ impl Spectrum {
             .map(|name| name.as_str().unwrap().to_string());
         let referencing_method = reference
             .get("referencing_method")
-            .map(|method| std::str::FromStr::from_str(method.as_str().unwrap()).ok())
-            .flatten();
+            .and_then(|method| std::str::FromStr::from_str(method.as_str().unwrap()).ok());
         let reference = spectrum::meta::ReferenceCompound::new(
             chemical_shift,
             index as usize,
