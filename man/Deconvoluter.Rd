@@ -5,7 +5,7 @@
 \alias{Deconvoluter}
 \title{Deconvoluter Class}
 \format{
-An object of class \code{environment} of length 15.
+An object of class \code{environment} of length 17.
 }
 \usage{
 Deconvoluter
@@ -16,21 +16,23 @@ Environment containing methods for the Deconvoluter class.
 \section{Methods}{
 
 
-\if{html}{\out{<div class="sourceCode R">}}\preformatted{x <- Deconvoluter$new()  
-x$add_ignore_region(start, end)  
-x$clear_ignore_regions()  
-x$deconvolute_spectra(spectra)  
-x$deconvolute_spectrum(spectrum)  
-x$fitting_settings()  
-x$ignore_regions()  
-x$optimize_settings(reference)  
-x$par_deconvolute_spectra(spectra)  
-x$par_deconvolute_spectrum(spectrum)  
-x$selection_settings()  
-x$set_analytical_fitter(iterations)  
-x$set_moving_average_smoother(iterations, window_size)  
-x$set_noise_score_selector(threshold)  
-x$smoothing_settings()  
+\if{html}{\out{<div class="sourceCode R">}}\preformatted{x <- Deconvoluter$new()
+x$add_ignore_region(start, end)
+x$clear_ignore_regions()
+x$deconvolute_spectra(spectra)
+x$deconvolute_spectrum(spectrum)
+x$fitting_settings()
+x$ignore_regions()
+x$optimize_settings(reference)
+x$par_deconvolute_spectra(spectra)
+x$par_deconvolute_spectrum(spectrum)
+x$selection_settings()
+x$set_analytical_fitter(iterations)
+x$set_detector_only()
+x$set_identity_smoother()
+x$set_moving_average_smoother(iterations, window_size)
+x$set_noise_score_selector(threshold)
+x$smoothing_settings()
 }\if{html}{\out{</div>}}
 
 For more information on the methods, see the Rust documentation at

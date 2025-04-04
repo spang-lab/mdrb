@@ -63,7 +63,7 @@ impl Spectrum {
 
         match spectrum::Spectrum::new(chemical_shifts, intensities, signal_boundaries) {
             Ok(spectrum) => spectrum.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 
@@ -113,7 +113,7 @@ impl Spectrum {
 
         match self.inner.set_signal_boundaries(signal_boundaries) {
             Ok(_) => (),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 
@@ -165,7 +165,7 @@ impl Spectrum {
 
         match spectrum::Bruker::read_spectrum(path, experiment, processing, signal_boundaries) {
             Ok(spectrum) => spectrum.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 
@@ -185,7 +185,7 @@ impl Spectrum {
                     .into_iter()
                     .map(|spectrum| spectrum.into())
                     .collect::<Vec<Spectrum>>(),
-                Err(error) => throw_r_error(format!("{}", error)),
+                Err(error) => throw_r_error(error.to_string()),
             };
 
         List::from_values(spectra)
@@ -199,14 +199,14 @@ impl Spectrum {
 
         match spectrum::JcampDx::read_spectrum(path, signal_boundaries) {
             Ok(spectrum) => spectrum.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 
     pub(crate) fn write_json(&self, path: &str) {
         let serialized = match serde_json::to_string_pretty(self.as_ref()) {
             Ok(serialized) => serialized,
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         };
         std::fs::write(path, serialized).unwrap();
     }
@@ -216,14 +216,14 @@ impl Spectrum {
 
         match serde_json::from_str::<spectrum::Spectrum>(&serialized) {
             Ok(deserialized) => deserialized.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 
     pub(crate) fn write_bin(&self, path: &str) {
         let serialized = match rmp_serde::to_vec(self.as_ref()) {
             Ok(serialized) => serialized,
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         };
         std::fs::write(path, serialized).unwrap();
     }
@@ -233,7 +233,7 @@ impl Spectrum {
 
         match rmp_serde::from_slice::<spectrum::Spectrum>(&serialized) {
             Ok(deserialized) => deserialized.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 }
