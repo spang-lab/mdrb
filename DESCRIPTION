@@ -1,6 +1,6 @@
 Package: mdrb
 Title: Metabodecon Rust Backend
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person(given = "Tobias",
            family = "Schmidt",
