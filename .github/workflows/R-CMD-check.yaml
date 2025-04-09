@@ -54,8 +54,5 @@ jobs:
 
       - name: Test package
         uses: r-lib/actions/check-r-package@v2
-        continue-on-error: ${{ matrix.config.r == '4.1' }}
-
-      - name: Mark as warning for R <=4.1 and R devel
-        if: ${{ matrix.config.r == '4.1' }}
-        run: 'echo "Warning: Installation is expected to fail for R 4.1 or lower."'
+        with:
+          allow-warnings: ${{ matrix.config.r == 'devel' }}

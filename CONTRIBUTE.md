@@ -50,6 +50,11 @@ devtools::check() # Check package formalities
 devtools::install() # Install as required by next commands
 toscutil::check_pkg_docs() # Check function documentation for missing tags
 pkgdown::build_site() # Build website in docs folder
+system("sh test_build.sh") # Test building of bundled and binary packages (1)
+# (1) The test_build.sh script should be used with care. It has been written
+# very recently and has only been tested on Windows 11 and WSL-Ubuntu-24.
+# If it fails, it's very possible that the script is failing and not the package.
+# If this happens, dont ignore the failure, but fix the script!
 ```
 
 After doing these steps, you can push your changes to Github and create a pull request.
