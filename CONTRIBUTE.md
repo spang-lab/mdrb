@@ -30,7 +30,7 @@ After you installed all dependencies, you can edit:
 5. Authors in file [DESCRIPTION](DESCRIPTION)
 6. R dependencies in file [DESCRIPTION](DESCRIPTION)
 7. Rust dependencies in file [src/rust/Cargo.toml](src/rust/Cargo.toml).
-8. Updating Rust build scripts [configure](configure), [Makevars](src/Makevars) or [cleanup](cleanup). See [How do the build scripts work?](#faq) for details.
+8. Updating Rust build scripts e.g. [Makevars](src/Makevars) or [cleanup](cleanup). For details see question [Why do we need a cleanup script?](#why-do-we-need-cleanup) in the [FAQ](#faq).
 
 ## Test the Package
 
@@ -189,17 +189,7 @@ The following happens when you run `install.packages("mdrb", repos = NULL, type 
 
 6. After that, make will continue to execute the commands defined by `%.dll` and invoke the linker to create `mdrb.dll` from `lib_mdrb.a`
 
-## How do the build scripts work?
-
-The mdrb package contains three build scripts: `configure`, `Makevars` [^1] and `cleanup`. The job of these scipts is to ensure that the following transformations produce the desired output:
-
-1. Source to Bundle: configure, cleanup
-2. Source to Binary: configure, Makevars, cleanup
-3. Bundle to Binary: configure, Makevars, cleanup
-
-[^1] To be precise, Makevars comes with differen flavors for different platforms. The one used on older versions of Windows is called `Makevars.win` and the one used on newer versions of Windows `Makevars.ucrt`.
-
-## What is a bundled package?
+## Why do we need a cleanup script?
 
 According to [R Packages](https://r-pkgs.org/structure.html#fig-package-files) there are three major states an R package can exist in:
 
@@ -209,4 +199,64 @@ According to [R Packages](https://r-pkgs.org/structure.html#fig-package-files) t
 
 3. *Binary*: A binary package is what you get after performing an installation of the package and compressing the resulting files into a single file. I.e. all data files, R files and manuals have been compiled into binary representations and low level source code has been compiled into machine code.
 
+Depending on the state of the package, different actions and files are required or forbidden. E.g.:
 
+| File                   | Source  | Bundle    | Binary    |
+| ---------------------- | ------- | --------- | --------- |
+| src/rust/vendor.tar.xz | ignored | required  | ignored   |
+| src/rust/vendor        | ignored | forbidden | forbidden |
+| src/mdrb.dll           | ignored | forbidden | required  |
+| downloading            | allowed | forbidden | required  |
+
+I.e., we need to setup the package scripts in a way that they produce the right set of files for each of the three states. `cleanup` is called during conversion from Source to Bundle and Bundle to Binary. `Makevars` is used during conversion from Source to Binary and Bundle to Binary, but **not** during conversion from Source to Bundle.
+
+```txt
+Source -------> Bundle --------> Binary
+       cleanup         Makevars
+                       cleanup
+
+Source ------------------------> Binary
+                       Makevars
+                       cleanup
+```
+
+This means, that `cleanup` needs not only to "clean up" but also to create `src/rust/vendor.tar.xz` if not yet existing. Furthermore, `Makevars` needs not only to be able to create `src/mdrb.dll` from `src/rust/vendor.tar.xz` (offline), but also to create `src/rust/vendor.tar.xz` if it does not exist (when installing from Source). I.e., both `Makevars` and `cleanup` need to be able to `src/rust/vendor.tar.xz`, when called from the Source package (where downloads are still allowed). Therefor, the functionality for creating `src/rust/vendor.tar.xz` is implemented in a seperate script `vendor.sh`, that is used by both `Makevars` and `cleanup`.
+
+
+## Why do we need a cleanup script?
+
+According to [R Packages](https://r-pkgs.org/structure.html#fig-package-files), an R package can exist in three major states:
+
+1. *Source*: The raw form of the package, as obtained after a fresh `git clone` of the repository.
+
+2. *Bundled*: A preprocessed version of the source package created using `R CMD build` or `devtools::build()`. It includes compiled vignettes and excludes files ignored by `.Rbuildignore`.
+
+3. *Binary*: The installed version of the package, where all R files, data, and manuals are compiled into binary representations, and low-level source code is compiled into machine code.
+
+Each state requires or forbids specific files:
+
+| File                     | Source  | Bundle    | Binary    |
+| ------------------------ | ------- | --------- | --------- |
+| `src/rust/vendor.tar.xz` | ignored | required  | ignored   |
+| `src/rust/vendor`        | ignored | forbidden | forbidden |
+| `src/mdrb.dll`           | ignored | forbidden | required  |
+| `downloading`            | allowed | forbidden | forbidden |
+
+To handle these requirements, package scripts must ensure the correct files are present for each state. The `cleanup` script is invoked during transitions from Source to Bundle and Bundle to Binary. The `Makevars` file is used during transitions from Source to Binary and Bundle to Binary but **not** from Source to Bundle.
+
+```txt
+Source -------> Bundle --------> Binary
+       cleanup         Makevars
+                       cleanup
+
+Source ------------------------> Binary
+                       Makevars
+                       cleanup
+```
+
+This means the `cleanup` script must not only remove unnecessary files but also create `src/rust/vendor.tar.xz` if it does not already exist. Similarly, `Makevars` must be able to:
+
+1. Create `src/mdrb.dll` from `src/rust/vendor.tar.xz` (offline).
+2. Create `src/rust/vendor.tar.xz` if it is missing (when installing from Source).
+
+To avoid duplication, the functionality for creating `src/rust/vendor.tar.xz` is implemented in a separate script, `vendor.sh`, which is shared by both `Makevars` and `cleanup`.

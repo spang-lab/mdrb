@@ -2,6 +2,7 @@
 ^.*\.bak$
 ^.*\.Rproj\.*$
 ^.*\.tar\.gz$
+^\.cargo_tmp$
 ^\.cargo$
 ^\.git$
 ^\.github$
@@ -25,8 +26,8 @@
 ^pkgdown$
 ^README\.md$
 ^revdep$
-^src/\.cargo$
 ^submit_to_cran\.R$
+^test_build\.sh$
 ^tmp$
 ^TODOS\.md$
 ^vdiffr\.Rout\.fail$

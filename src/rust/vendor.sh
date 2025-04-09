@@ -35,4 +35,6 @@ else
     tar -cJf vendor.tar.xz vendor
 fi
 
+echo ""
 echo "Finished vendoring of Rust dependencies"
+echo ""
