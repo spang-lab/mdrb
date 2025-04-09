@@ -2,6 +2,13 @@
 
 echo "Starting cleanup"
 
+if test ! -f "src/rust/vendor.tar.gz"
+then
+    echo "Required file src/rust/vendor.tar.gz does not exist yet."
+    echo "Calling (sh configure) to create it."
+    (sh configure)
+fi
+
 rm -rf src/rust/.cargo_tmp
 rm -rf src/rust/target
 rm -rf src/rust/vendor
