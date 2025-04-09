@@ -38,7 +38,10 @@ $(STATLIB):
 	cargo --version && \
 	rustc --version && \
 	cd rust && \
-	tar -xJf vendor.tar.xz && \
+	sh vendor.sh && \
+	test -d vendor || tar -xJf vendor.tar.xz && \
+	mkdir -p .cargo && \
+	cp config.toml .cargo && \
 	cargo build --target=$(TARGET) --lib --release -j 2 --offline
 
 C_clean:

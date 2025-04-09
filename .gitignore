@@ -1,3 +1,4 @@
+.cargo/
 .cargo_tmp/
 .idea/
 .Rhistory

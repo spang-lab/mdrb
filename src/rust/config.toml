@@ -9,6 +9,7 @@
 #
 # To circumvent this, we place the file directly next to Cargo.toml and
 # move it to .cargo/config.toml at install-time.
+
 [source.crates-io]
 replace-with = "vendored-sources"
 

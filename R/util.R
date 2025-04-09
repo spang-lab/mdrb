@@ -1,3 +1,5 @@
+#' @import utils
+
 #' @noRd
 #' @examples
 #' cat(make_r_docs("Spectrum"), sep = "\n")

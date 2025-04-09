@@ -19,12 +19,15 @@ $(SHLIB): $(STATLIB)
 CARGOTMP = $(CURDIR)/.cargo_tmp
 
 $(STATLIB):
-	export CARGO_HOME=$(CARGOTMP); && \
+	export CARGO_HOME=$(CARGOTMP) && \
 	export PATH="$(PATH):$(HOME)/.cargo/bin" && \
 	cargo --version && \
 	rustc --version && \
 	cd rust && \
-	tar -xJf .vendor.tar.xz && \
+	sh vendor.sh && \
+	test -d vendor || tar -xJf vendor.tar.xz && \
+	mkdir -p .cargo && \
+	cp config.toml .cargo && \
 	cargo build --lib --release -j 2 --offline
 
 C_clean:
