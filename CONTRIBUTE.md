@@ -23,12 +23,14 @@ Before you make edits, ensure you have the following dependencies installed:
 
 After you installed all dependencies, you can edit:
 
-1. Function code and documentation in folder [R](R)
+1. R code and documentation in folder [R](R)
 2. Rust code and documentation in folder [src/rust](src/rust)
 3. Package documentation in folder `vignettes`
 4. Test cases in folder [tests](tests)
-5. Dependencies in file [DESCRIPTION](DESCRIPTION)
-6. Authors in file [DESCRIPTION](DESCRIPTION)
+5. Authors in file [DESCRIPTION](DESCRIPTION)
+6. R dependencies in file [DESCRIPTION](DESCRIPTION)
+7. Rust dependencies in file [src/rust/Cargo.toml](src/rust/Cargo.toml).
+8. Updating Rust build scripts [configure](configure), [Makevars](src/Makevars) or [cleanup](cleanup). See [How do the build scripts work?](#faq) for details.
 
 ## Test the Package
 
@@ -42,7 +44,7 @@ rextendr::document() # Build the shared Rust object and R wrapper functions
 devtools::document() # Build documentation in man folder
 devtools::spell_check() # Check spelling (add false positives to inst/WORDLIST)
 urlchecker::url_check() # Check URLs
-run_tests(all = TRUE) # Execute tests from tests folder inkl. slow tests
+devtools::test() # Execute tests from tests folder inkl. slow tests
 devtools::run_examples(run_donttest = TRUE) # Run all examples in the package
 devtools::check() # Check package formalities
 devtools::install() # Install as required by next commands
@@ -186,3 +188,25 @@ The following happens when you run `install.packages("mdrb", repos = NULL, type 
 5. Because `SHLIB` was set to `mdrb.dll` in step two, the `%.dll` rule will trigger the `SHLIB` rule, which will cause the creation of `rust/target/release/lib_mdrb.a`.
 
 6. After that, make will continue to execute the commands defined by `%.dll` and invoke the linker to create `mdrb.dll` from `lib_mdrb.a`
+
+## How do the build scripts work?
+
+The mdrb package contains three build scripts: `configure`, `Makevars` [^1] and `cleanup`. The job of these scipts is to ensure that the following transformations produce the desired output:
+
+1. Source to Bundle: configure, cleanup
+2. Source to Binary: configure, Makevars, cleanup
+3. Bundle to Binary: configure, Makevars, cleanup
+
+[^1] To be precise, Makevars comes with differen flavors for different platforms. The one used on older versions of Windows is called `Makevars.win` and the one used on newer versions of Windows `Makevars.ucrt`.
+
+## What is a bundled package?
+
+According to [R Packages](https://r-pkgs.org/structure.html#fig-package-files) there are three major states an R package can exist in:
+
+1. *Source*: A source package is the package in its raw form, as you get after a fresh git clone of the package repo
+
+2. *Bundled*: A bundled package is a source package that has been preprocessed by `R CMD build` or `devtools::build()`, i.e. it contains compiled vignettes and has been stripped of all files ignored by .Rbuildignore
+
+3. *Binary*: A binary package is what you get after performing an installation of the package and compressing the resulting files into a single file. I.e. all data files, R files and manuals have been compiled into binary representations and low level source code has been compiled into machine code.
+
+

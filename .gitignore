@@ -1,7 +1,8 @@
+.cargo_tmp/
+.idea/
 .Rhistory
 .Rproj.user
 .vscode/
-.idea/
 *_cache/
 *_files/
 *.bkp
@@ -17,9 +18,9 @@ archive/
 assets/
 dist/
 docs/
-inst/doc
 inst/doc/
 tests/testthat_outputs/
 tmp
 vdiffr.Rout.fail
-docs
+vendor/
+vendor.tar.xz

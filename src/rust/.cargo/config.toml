@@ -1,0 +1,10 @@
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=9cfd0bbd718ffc16d333780a449407b25e5f6d84"]
+git = "https://github.com/SombkeMaximilian/metabodecon-rust"
+rev = "9cfd0bbd718ffc16d333780a449407b25e5f6d84"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"

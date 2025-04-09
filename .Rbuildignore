@@ -1,13 +1,14 @@
 ^_pkgdown\.yml$
+^.*\.bak$
 ^.*\.Rproj\.*$
 ^.*\.tar\.gz$
+^\.cargo$
 ^\.git$
 ^\.github$
 ^\.gitignore$
 ^\.gitlab-ci\.yml$
 ^\.lintr$
 ^\.vscode$
-^.*\.bak$
 ^CHANGELOG\.md$
 ^check_package\.R$
 ^check$
@@ -24,9 +25,9 @@
 ^pkgdown$
 ^README\.md$
 ^revdep$
+^src/\.cargo$
 ^submit_to_cran\.R$
 ^tmp$
 ^TODOS\.md$
 ^vdiffr\.Rout\.fail$
 ^vignettes$
-^src/\.cargo$

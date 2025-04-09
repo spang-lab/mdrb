@@ -1,0 +1,9 @@
+#!/bin/sh
+
+echo "Starting cleanup"
+
+rm -rf src/rust/.cargo_tmp
+rm -rf src/rust/target
+rm -rf src/rust/vendor
+
+echo "Finished cleanup"
