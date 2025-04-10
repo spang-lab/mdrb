@@ -14,7 +14,6 @@ To install the package from a pre-compiled binary:
 
 1.  Install R version 4.2 or higher from [CRAN](https://cran.r-project.org/)
 2.  Enter the following commands in a running R session:
-
     ```R
     install.packages("mdrb", type="binary", repos="https://spang-lab.r-universe.dev")
     ```
@@ -25,7 +24,6 @@ To install from source:
 2.  If you're on Windows install RTools from [CRAN](https://cran.r-project.org/).
 3.  Install the Rust toolchain from [rustup.rs](https://rustup.rs/).
 4.  Install the *mdrb* package by running the following commands in R:
-
     ```R
     install.packages("mdrb", type="source", repos="https://spang-lab.r-universe.dev")
     ```
