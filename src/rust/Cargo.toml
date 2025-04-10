@@ -9,6 +9,7 @@ publish = false
 [lib]
 name = "_mdrb"
 crate-type = ["staticlib"]
+path = "mdrb_lib.rs"
 
 [dependencies]
 extendr-api = "0.8.0"
