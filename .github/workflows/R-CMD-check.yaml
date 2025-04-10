@@ -55,4 +55,4 @@ jobs:
       - name: Test package
         uses: r-lib/actions/check-r-package@v2
         with:
-          allow-warnings: ${{ matrix.config.r == 'devel' }}
+          error-on: ${{ matrix.config.r == 'devel' && '"error"' || '"warning"' }}
