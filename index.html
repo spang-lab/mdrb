@@ -55,21 +55,27 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
+<p>To install the package from a pre-compiled binary:</p>
+<ol style="list-style-type: decimal">
+<li>Install R version 4.2 or higher from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>
+</li>
+<li>Enter the following commands in a running R session: <code>R     install.packages("mdrb", type="binary", repos="https://spang-lab.r-universe.dev")</code>
+</li>
+</ol>
+<p>To install from source:</p>
 <ol style="list-style-type: decimal">
 <li>Install R version 4.2 or higher from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</li>
 <li>If you’re on Windows install RTools from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</li>
 <li>Install the Rust toolchain from <a href="https://rustup.rs/" class="external-link">rustup.rs</a>.</li>
-<li>Install the <em>mdrb</em> package by running the following commands in R:</li>
+<li>Install the <em>mdrb</em> package by running the following commands in R: <code>R     install.packages("mdrb", type="source", repos="https://spang-lab.r-universe.dev")</code>
+</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"pak"</span><span class="op">)</span></span>
-<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pkg_install.html" class="external-link">pkg_install</a></span><span class="op">(</span><span class="st">"spang-lab/mdrb"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p><em>mdrb</em> is primarily intended to be used through the frontend functions provided by the <em>metabodecon</em> package. However, if you prefer to use the package directly, you can follow the example below:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spectrum_path</span> <span class="op">&lt;-</span> <span class="fu">metabodecon</span><span class="fu">::</span><span class="fu"><a href="https://spang-lab.github.io/metabodecon/reference/metabodecon_file.html" class="external-link">metabodecon_file</a></span><span class="op">(</span><span class="st">"bruker/urine/urine_1"</span><span class="op">)</span></span>
 <span><span class="va">r_spectrum</span> <span class="op">&lt;-</span> <span class="fu">metabodecon</span><span class="fu">::</span><span class="fu"><a href="https://spang-lab.github.io/metabodecon/reference/read_spectrum.html" class="external-link">read_spectrum</a></span><span class="op">(</span><span class="va">spectrum_path</span><span class="op">)</span></span>
 <span></span>
@@ -145,6 +151,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/spang-lab/mdrb/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/spang-lab/mdrb/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://github.com/spang-lab/mdrb/actions/workflows/test-install.yaml" class="external-link"><img src="https://github.com/spang-lab/mdrb/actions/workflows/test-install.yaml/badge.svg" alt="Test-Install"></a></li>
+<li><a href="https://spang-lab.r-universe.dev/mdrb" class="external-link"><img src="https://spang-lab.r-universe.dev/mdrb/badges/version" alt="R-Universe-Version"></a></li>
 </ul>
 </div>
 
