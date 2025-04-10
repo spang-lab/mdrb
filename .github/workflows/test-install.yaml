@@ -18,18 +18,14 @@ jobs:
           # Ubuntu (should work for all versions)
           - {os: ubuntu-latest,  r: 'devel'}
           - {os: ubuntu-latest,  r: 'release'}
+          - {os: ubuntu-latest,  r: 'oldrel'}
           - {os: ubuntu-latest,  r: '4.2'}
-          - {os: ubuntu-latest,  r: '4.1'}
-          - {os: ubuntu-latest,  r: '3.6'}
           # MacOS (should work for all versions)
           - {os: macos-latest,   r: 'release'}
           - {os: macos-latest,   r: '4.2'}
-          - {os: macos-latest,   r: '4.1'}
           # Windows (should work for 4.2 and greater)
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: '4.2'}
-          - {os: windows-latest, r: '4.1'}
-          - {os: windows-latest, r: '3.6'}
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       R_KEEP_PKG_SOURCE: yes
@@ -56,8 +52,3 @@ jobs:
         run: |
           install.packages("pak")
           pak::pkg_install("spang-lab/mdrb")
-        continue-on-error: ${{ matrix.config.r == '4.1' || matrix.config.r == '3.6' || matrix.config.r == '2.15' }}
-
-      - name: Mark as warning for R 4.1 or lower
-        if: ${{ matrix.config.r == '4.1' || matrix.config.r == '3.6' || matrix.config.r == '2.15' }}
-        run: 'echo "Warning: Installation is expected to fail for R 4.1 or lower."'

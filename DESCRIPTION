@@ -1,6 +1,6 @@
 Package: mdrb
 Title: Metabodecon Rust Backend
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person(given = "Tobias",
            family = "Schmidt",
@@ -34,7 +34,7 @@ biocViews: NMR, Deconvolution
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
-Depends: R (>= 3.5.0)
+Depends: R (>= 4.2.0)
 Suggests:
     metabodecon,
     devtools,
@@ -45,4 +45,4 @@ Config/testthat/parallel: true
 BuildManual: TRUE
 Language: en-US
 Config/rextendr/version: 0.3.1.9001
-SystemRequirements: Cargo (Rust's package manager), rustc (>= 1.78.0)
+SystemRequirements: Cargo (Rust's package manager), rustc (>= 1.80.0)
