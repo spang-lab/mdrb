@@ -11,7 +11,7 @@ name = "_mdrb"
 crate-type = ["staticlib"]
 
 [dependencies]
-extendr-api = "0.7.1"
+extendr-api = "0.8.0"
 # metabodecon = { path = "./metabodecon", version = "0.1.0", features = ["full"] }
 metabodecon = { git = "https://github.com/SombkeMaximilian/metabodecon-rust", rev = "9cfd0bbd718ffc16d333780a449407b25e5f6d84", features = ["full"] }
 rayon = "1.10.0"
