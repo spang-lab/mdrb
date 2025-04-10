@@ -1,5 +1,6 @@
 [![R-CMD-check](https://github.com/spang-lab/mdrb/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/spang-lab/mdrb/actions/workflows/R-CMD-check.yaml)
 [![Test-Install](https://github.com/spang-lab/mdrb/actions/workflows/test-install.yaml/badge.svg)](https://github.com/spang-lab/mdrb/actions/workflows/test-install.yaml)
+[![R-Universe-Version](https://spang-lab.r-universe.dev/mdrb/badges/version)](https://spang-lab.r-universe.dev/mdrb)
 
 # mdrb
 
@@ -9,15 +10,25 @@ Provides a high-performance Rust backend for the [metabodecon](https://github.co
 
 ## Installation
 
-1. Install R version 4.2 or higher from [CRAN](https://cran.r-project.org/).
-2. If you're on Windows install RTools from [CRAN](https://cran.r-project.org/).
-3. Install the Rust toolchain from [rustup.rs](https://rustup.rs/).
-4. Install the *mdrb* package by running the following commands in R:
+To install the package from a pre-compiled binary:
 
-```R
-install.packages("pak")
-pak::pkg_install("spang-lab/mdrb")
-```
+1.  Install R version 4.2 or higher from [CRAN](https://cran.r-project.org/)
+2.  Enter the following commands in a running R session:
+
+    ```R
+    install.packages("mdrb", type="binary", repos="https://spang-lab.r-universe.dev")
+    ```
+
+To install from source:
+
+1.  Install R version 4.2 or higher from [CRAN](https://cran.r-project.org/).
+2.  If you're on Windows install RTools from [CRAN](https://cran.r-project.org/).
+3.  Install the Rust toolchain from [rustup.rs](https://rustup.rs/).
+4.  Install the *mdrb* package by running the following commands in R:
+
+    ```R
+    install.packages("mdrb", type="source", repos="https://spang-lab.r-universe.dev")
+    ```
 
 ## Usage
 
