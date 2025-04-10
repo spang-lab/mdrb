@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">mdrb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.2</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,7 +29,7 @@
   <main id="main" class="col-md-9"><div class="page-header">
 
       <h1>Deconvoluter Class</h1>
-      <small class="dont-index">Source: <a href="https://github.com/spang-lab/mdrb/blob/v0.0.1/R/extendr-wrappers.R" class="external-link"><code>R/extendr-wrappers.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/spang-lab/mdrb/blob/main/R/extendr-wrappers.R" class="external-link"><code>R/extendr-wrappers.R</code></a></small>
       <div class="d-none name"><code>Deconvoluter.Rd</code></div>
     </div>
 
@@ -44,7 +44,7 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>An object of class <code>environment</code> of length 15.</p>
+    <p>An object of class <code>environment</code> of length 19.</p>
     </div>
     <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
@@ -54,6 +54,7 @@
 <p></p><div class="sourceCode R"><pre><code><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/Deconvoluter.html">Deconvoluter</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">add_ignore_region</span><span class="op">(</span><span class="va">start</span>, <span class="va">end</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">clear_ignore_regions</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">$</span><span class="fu">clear_threads</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">deconvolute_spectra</span><span class="op">(</span><span class="va">spectra</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">deconvolute_spectrum</span><span class="op">(</span><span class="va">spectrum</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">fitting_settings</span><span class="op">(</span><span class="op">)</span></span>
@@ -63,8 +64,11 @@
 <span><span class="va">x</span><span class="op">$</span><span class="fu">par_deconvolute_spectrum</span><span class="op">(</span><span class="va">spectrum</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">selection_settings</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">set_analytical_fitter</span><span class="op">(</span><span class="va">iterations</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">$</span><span class="fu">set_detector_only</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">$</span><span class="fu">set_identity_smoother</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">set_moving_average_smoother</span><span class="op">(</span><span class="va">iterations</span>, <span class="va">window_size</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">set_noise_score_selector</span><span class="op">(</span><span class="va">threshold</span><span class="op">)</span></span>
+<span><span class="va">x</span><span class="op">$</span><span class="fu">set_threads</span><span class="op">(</span><span class="va">threads</span><span class="op">)</span></span>
 <span><span class="va">x</span><span class="op">$</span><span class="fu">smoothing_settings</span><span class="op">(</span><span class="op">)</span></span></code></pre><p></p></div>
 <p>For more information on the methods, see the Rust documentation at
 <a href="https://github.com/SombkeMaximilian/metabodecon-rust" class="external-link">https://github.com/SombkeMaximilian/metabodecon-rust</a>.</p>
