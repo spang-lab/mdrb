@@ -687,6 +687,116 @@ impl Lorentzian {
     }
 }
 
+// Fixes ---------------------------------------------------------------------
+
+use extendr_api::ToVectorValue;
+
+impl ToVectorValue for Deconvoluter {}
+impl ToVectorValue for Deconvolution {}
+impl ToVectorValue for Spectrum {}
+impl ToVectorValue for Lorentzian {}
+
+impl TryFrom<&Robj> for &Deconvoluter {
+    type Error = Error;
+    fn try_from(_value: &Robj) -> Result<Self> {
+        Err(Error::from(format!("Initialization of Deconvoluter objects is not supported!")))
+    }
+}
+
+impl TryFrom<&Robj> for &Deconvolution {
+    type Error = Error;
+    fn try_from(_value: &Robj) -> Result<Self> {
+        Err(Error::from(format!("Initialization of Deconvolution objects is not supported!")))
+    }
+}
+
+impl TryFrom<&Robj> for &Lorentzian {
+    type Error = Error;
+    fn try_from(_value: &Robj) -> Result<Self> {
+        Err(Error::from(format!("Initialization of Lorentzian objects is not supported!")))
+    }
+}
+
+impl TryFrom<&mut Robj> for &mut Deconvoluter {
+    type Error = Error;
+    fn try_from(_value: &mut Robj) -> Result<Self> {
+        Err(Error::from(format!("Initialization of Deconvoluter objects is not supported!")))
+    }
+}
+
+impl TryFrom<&mut Robj> for &mut Deconvolution {
+    type Error = Error;
+    fn try_from(_value: &mut Robj) -> Result<Self> {
+        Err(Error::from(format!("Initialization of Deconvolution objects is not supported!")))
+    }
+}
+
+impl TryFrom<&mut Robj> for &mut Lorentzian {
+    type Error = Error;
+    fn try_from(_value: &mut Robj) -> Result<Self> {
+        Err(Error::from(format!("Initialization of Lorentzian objects is not supported!")))
+    }
+}
+
+impl TryFrom<Robj> for &Spectrum {
+    type Error = Error;
+    fn try_from(value: Robj) -> Result<Self> {
+        if let Some(class) = value.class() {
+            let class = class.collect::<String>();
+            match class.as_str() {
+                "Spectrum" => (),
+                _ => return Err(Error::from(format!("Expected Spectrum, got {:?}", class))),
+            }
+        } else {
+            return Err(Error::from(format!("Expected Spectrum, got {:?}", value)));
+        }
+        // Use ExternalPtr to safely manage the lifetime of the Spectrum object
+        let ptr: &ExternalPtr<Spectrum> = value.try_into()?;
+        Ok(ptr.as_ref())
+    }
+}
+
+impl TryFrom<&Robj> for &Spectrum {
+    type Error = Error;
+    fn try_from(value: &Robj) -> Result<Self> {
+        if let Some(class) = value.class() {
+            let class = class.collect::<String>();
+            match class.as_str() {
+                "Spectrum" => (),
+                _ => return Err(Error::from(format!("Expected Spectrum, got {:?}", class))),
+            }
+        } else {
+            return Err(Error::from(format!("Expected Spectrum, got {:?}", value)));
+        }
+        let ptr: &ExternalPtr<Spectrum> = value.try_into()?;
+        Ok(ptr.as_ref())
+    }
+}
+
+impl AsMut<Spectrum>for Spectrum {
+    fn as_mut(&mut self) -> &mut Spectrum {
+        self
+    }
+}
+
+impl TryFrom<&mut Robj> for &mut Spectrum {
+    type Error = Error;
+    fn try_from(value: &mut Robj) -> Result<Self> {
+        if let Some(class) = value.class() {
+            let class = class.collect::<String>();
+            match class.as_str() {
+                "Spectrum" => (),
+                _ => return Err(Error::from(format!("Expected Spectrum, got {:?}", class))),
+            }
+        } else {
+            return Err(Error::from(format!("Expected Spectrum, got {:?}", value)));
+        }
+        let value = value.clone();
+        let ptr: &mut ExternalPtr<Spectrum> = value.try_into()?;
+        Ok(ptr.as_mut())
+    }
+}
+
 // Module ---------------------------------------------------------------------
 
 extendr_module! {
