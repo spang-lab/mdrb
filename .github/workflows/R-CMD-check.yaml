@@ -56,3 +56,10 @@ jobs:
         uses: r-lib/actions/check-r-package@v2
         with:
           error-on: ${{ matrix.config.r == 'devel' && '"error"' || '"warning"' }}
+
+      - name: Print Logs
+        run: |
+          cat ./check/mdrb.Rcheck/00install.out
+          find ./check -name libmdrb.a -ls
+          find ./check/mdrb.Rcheck/00_pkg_src/mdrb/src/rust/target/ -type f -name '*.a' -ls
+          find ./check/mdrb.Rcheck/00_pkg_src/mdrb/src/rust/target/ -type f -name '*.rlib' -ls
