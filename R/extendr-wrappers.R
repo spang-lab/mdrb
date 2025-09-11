@@ -10,6 +10,36 @@
 #' @useDynLib mdrb, .registration = TRUE
 NULL
 
+Aligner <- new.env(parent = emptyenv())
+
+Aligner$new <- function() .Call(wrap__Aligner__new)
+
+Aligner$alignment_strategy <- function() .Call(wrap__Aligner__alignment_strategy, self)
+
+Aligner$filtering_settings <- function() .Call(wrap__Aligner__filtering_settings, self)
+
+Aligner$solving_settings <- function() .Call(wrap__Aligner__solving_settings, self)
+
+Aligner$set_reference_alignment <- function(index) invisible(.Call(wrap__Aligner__set_reference_alignment, self, index))
+
+Aligner$set_pairwise_alignment <- function() invisible(.Call(wrap__Aligner__set_pairwise_alignment, self))
+
+Aligner$set_distance_similarity_filter <- function(similarity_metric, max_distance, min_similarity) invisible(.Call(wrap__Aligner__set_distance_similarity_filter, self, similarity_metric, max_distance, min_similarity))
+
+Aligner$set_linear_programming_solver <- function() invisible(.Call(wrap__Aligner__set_linear_programming_solver, self))
+
+Aligner$set_threads <- function(threads) invisible(.Call(wrap__Aligner__set_threads, self, threads))
+
+Aligner$clear_threads <- function() invisible(.Call(wrap__Aligner__clear_threads, self))
+
+Aligner$align_deconvolutions <- function(deconvolutions) .Call(wrap__Aligner__align_deconvolutions, self, deconvolutions)
+
+#' @export
+`$.Aligner` <- function (self, name) { func <- Aligner[[name]]; environment(func) <- environment(); func }
+
+#' @export
+`[[.Aligner` <- `$.Aligner`
+
 #' @eval make_r_docs("Deconvoluter")
 Deconvoluter <- new.env(parent = emptyenv())
 
@@ -147,6 +177,8 @@ Spectrum$read_bruker <- function(path, experiment, processing, signal_boundaries
 Spectrum$read_bruker_set <- function(path, experiment, processing, signal_boundaries) .Call(wrap__Spectrum__read_bruker_set, path, experiment, processing, signal_boundaries)
 
 Spectrum$read_jcampdx <- function(path, signal_boundaries) .Call(wrap__Spectrum__read_jcampdx, path, signal_boundaries)
+
+Spectrum$read_jcampdx_set <- function(path, signal_boundaries) .Call(wrap__Spectrum__read_jcampdx_set, path, signal_boundaries)
 
 Spectrum$write_json <- function(path) invisible(.Call(wrap__Spectrum__write_json, self, path))
 

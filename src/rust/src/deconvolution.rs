@@ -19,6 +19,43 @@ impl From<deconvolution::Deconvolution> for Deconvolution {
     }
 }
 
+impl TryFrom<&Robj> for Deconvolution {
+    type Error = Error;
+
+    fn try_from(value: &Robj) -> Result<Self> {
+        if let Some(class) = value.class() {
+            let class = class.collect::<String>();
+            match class.as_str() {
+                "Deconvolution" => (),
+                _ => {
+                    return Err(Error::from(format!(
+                        "Expected Deconvolution, got {:?}",
+                        class
+                    )))
+                }
+            }
+        } else {
+            return Err(Error::from(format!(
+                "Expected Deconvolution, got {:?}",
+                value
+            )));
+        }
+        let ptr: ExternalPtr<Deconvolution> = value.try_into()?;
+
+        Ok(ptr.as_ref().clone())
+    }
+}
+
+impl Deconvolution {
+    pub(crate) fn recover_list(spectra: &List) -> Result<Vec<Deconvolution>> {
+        spectra
+            .to_vec()
+            .iter()
+            .map(|r_obj| r_obj.try_into())
+            .collect::<Result<Vec<Deconvolution>>>()
+    }
+}
+
 /// @eval make_r_docs("Deconvolution")
 #[extendr]
 impl Deconvolution {
@@ -53,10 +90,7 @@ impl Deconvolution {
     }
 
     pub(crate) fn par_superposition_vec(&self, chemical_shifts: Vec<f64>) -> Vec<f64> {
-        deconvolution::Lorentzian::par_superposition_vec(
-            &chemical_shifts,
-            self.inner.lorentzians(),
-        )
+        deconvolution::Lorentzian::par_superposition_vec(&chemical_shifts, self.inner.lorentzians())
     }
 
     pub(crate) fn write_json(&self, path: &str) {

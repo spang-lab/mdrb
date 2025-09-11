@@ -1,3 +1,7 @@
+# mdrb 0.1.0
+
+- Aligner bindings added.
+
 # mdrb 0.0.1
 
 - No changes except bump to version 0.0.1 (to comply with semantic versioning).

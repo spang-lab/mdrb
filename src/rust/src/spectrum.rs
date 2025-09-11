@@ -203,6 +203,22 @@ impl Spectrum {
         }
     }
 
+    pub(crate) fn read_jcampdx_set(path: &str, signal_boundaries: Vec<f64>) -> List {
+        if signal_boundaries.len() != 2 {
+            throw_r_error("signal_boundaries must be a vector of length 2");
+        }
+        let signal_boundaries = (signal_boundaries[0], signal_boundaries[1]);
+        let spectra = match spectrum::JcampDx::read_spectra(path, signal_boundaries) {
+            Ok(spectra) => spectra
+                .into_iter()
+                .map(|spectrum| spectrum.into())
+                .collect::<Vec<Spectrum>>(),
+            Err(error) => throw_r_error(format!("{}", error)),
+        };
+
+        List::from_values(spectra)
+    }
+
     pub(crate) fn write_json(&self, path: &str) {
         let serialized = match serde_json::to_string_pretty(self.as_ref()) {
             Ok(serialized) => serialized,

@@ -2,14 +2,14 @@ use crate::deconvolution::Deconvolution;
 use crate::spectrum::Spectrum;
 use extendr_api::prelude::*;
 use metabodecon::deconvolution;
-use std::collections::HashMap;
 use rayon::{ThreadPool, ThreadPoolBuilder};
+use std::collections::HashMap;
 use std::sync::Arc;
 
 #[derive(Clone, Debug, Default)]
 pub(crate) struct Deconvoluter {
     inner: deconvolution::Deconvoluter,
-    threads: Option<Arc<ThreadPool>>
+    threads: Option<Arc<ThreadPool>>,
 }
 
 /// @eval make_r_docs("Deconvoluter")
@@ -101,7 +101,10 @@ impl Deconvoluter {
     }
 
     pub(crate) fn set_identity_smoother(&mut self) {
-        match self.inner.set_smoothing_settings(deconvolution::SmoothingSettings::Identity) {
+        match self
+            .inner
+            .set_smoothing_settings(deconvolution::SmoothingSettings::Identity)
+        {
             Ok(_) => (),
             Err(error) => throw_r_error(error.to_string()),
         }
@@ -120,7 +123,10 @@ impl Deconvoluter {
     }
 
     pub(crate) fn set_detector_only(&mut self) {
-        match self.inner.set_selection_settings(deconvolution::SelectionSettings::DetectorOnly) {
+        match self
+            .inner
+            .set_selection_settings(deconvolution::SelectionSettings::DetectorOnly)
+        {
             Ok(_) => (),
             Err(error) => throw_r_error(error.to_string()),
         }
@@ -165,10 +171,7 @@ impl Deconvoluter {
         if threads <= 1 {
             throw_r_error("number of threads must be greater than 1");
         } else {
-            let thread_pool = match ThreadPoolBuilder::new()
-                .num_threads(threads)
-                .build()
-            {
+            let thread_pool = match ThreadPoolBuilder::new().num_threads(threads).build() {
                 Ok(thread_pool) => thread_pool,
                 Err(error) => throw_r_error(error.to_string()),
             };
@@ -189,9 +192,9 @@ impl Deconvoluter {
 
     pub(crate) fn par_deconvolute_spectrum(&self, spectrum: &Spectrum) -> Deconvolution {
         let deconvolution = match &self.threads {
-            Some(threads) => threads.install(|| {
-                self.inner.par_deconvolute_spectrum(spectrum.as_ref())
-            }),
+            Some(threads) => {
+                threads.install(|| self.inner.par_deconvolute_spectrum(spectrum.as_ref()))
+            }
             None => self.inner.par_deconvolute_spectrum(spectrum.as_ref()),
         };
 
@@ -223,9 +226,7 @@ impl Deconvoluter {
             Err(error) => throw_r_error(error.to_string()),
         };
         let deconvolutions = match &self.threads {
-            Some(threads) => threads.install(|| {
-                self.inner.par_deconvolute_spectra(&spectra)
-            }),
+            Some(threads) => threads.install(|| self.inner.par_deconvolute_spectra(&spectra)),
             None => self.inner.par_deconvolute_spectra(&spectra),
         };
         let deconvolutions = match deconvolutions {
