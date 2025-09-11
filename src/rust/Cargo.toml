@@ -12,11 +12,14 @@ crate-type = ["staticlib"]
 
 [dependencies]
 extendr-api = "0.7.1"
-# metabodecon = { path = "./metabodecon", version = "0.1.0", features = ["full"] }
-metabodecon = { git = "https://github.com/SombkeMaximilian/metabodecon-rust", branch = "feature/alignment", features = ["full"] }
 rayon = "1.10.0"
 serde_json = "1.0.140"
 rmp-serde = "1.3.0"
+
+[dependencies.metabodecon]
+git = "https://github.com/SombkeMaximilian/metabodecon-rust"
+rev = "d73d0883894e0eb006c8b0951c709f6343672b1c"
+features = ["full"]
 
 [profile.release]
 panic = "abort"

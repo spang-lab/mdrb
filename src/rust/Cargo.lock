@@ -259,7 +259,7 @@ checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 [[package]]
 name = "metabodecon"
 version = "0.1.0"
-source = "git+https://github.com/SombkeMaximilian/metabodecon-rust?branch=feature/alignment#d73d0883894e0eb006c8b0951c709f6343672b1c"
+source = "git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=d73d0883894e0eb006c8b0951c709f6343672b1c#d73d0883894e0eb006c8b0951c709f6343672b1c"
 dependencies = [
  "byteorder",
  "good_lp",
