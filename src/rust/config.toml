@@ -1,0 +1,22 @@
+# Usually, this file would live inside .cargo/config.toml, but then R CMD check
+# would complain about hidden files, as in
+#
+# ❯ checking for hidden files and directories ... NOTE
+#   Found the following hidden files and directories:
+#     src/rust/.cargo
+#   These were most likely included in error. See section ‘Package
+#   structure’ in the ‘Writing R Extensions’ manual.
+#
+# To circumvent this, we place the file directly next to Cargo.toml and
+# move it to .cargo/config.toml at install-time.
+
+[source.crates-io]
+replace-with = "vendored-sources"
+
+[source."git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=9cfd0bbd718ffc16d333780a449407b25e5f6d84"]
+git = "https://github.com/SombkeMaximilian/metabodecon-rust"
+rev = "9cfd0bbd718ffc16d333780a449407b25e5f6d84"
+replace-with = "vendored-sources"
+
+[source.vendored-sources]
+directory = "vendor"

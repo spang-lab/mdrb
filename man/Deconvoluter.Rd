@@ -5,7 +5,7 @@
 \alias{Deconvoluter}
 \title{Deconvoluter Class}
 \format{
-An object of class \code{environment} of length 15.
+An object of class \code{environment} of length 19.
 }
 \usage{
 Deconvoluter
@@ -19,6 +19,7 @@ Environment containing methods for the Deconvoluter class.
 \if{html}{\out{<div class="sourceCode R">}}\preformatted{x <- Deconvoluter$new()  
 x$add_ignore_region(start, end)  
 x$clear_ignore_regions()  
+x$clear_threads()  
 x$deconvolute_spectra(spectra)  
 x$deconvolute_spectrum(spectrum)  
 x$fitting_settings()  
@@ -28,8 +29,11 @@ x$par_deconvolute_spectra(spectra)
 x$par_deconvolute_spectrum(spectrum)  
 x$selection_settings()  
 x$set_analytical_fitter(iterations)  
+x$set_detector_only()  
+x$set_identity_smoother()  
 x$set_moving_average_smoother(iterations, window_size)  
 x$set_noise_score_selector(threshold)  
+x$set_threads(threads)  
 x$smoothing_settings()  
 }\if{html}{\out{</div>}}
 

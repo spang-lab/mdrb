@@ -78,12 +78,12 @@ impl Deconvolution {
     }
 
     pub(crate) fn superposition_vec(&self, chemical_shifts: Vec<f64>) -> Vec<f64> {
-        deconvolution::Lorentzian::superposition_vec(&*chemical_shifts, self.inner.lorentzians())
+        deconvolution::Lorentzian::superposition_vec(&chemical_shifts, self.inner.lorentzians())
     }
 
     pub(crate) fn par_superposition_vec(&self, chemical_shifts: Vec<f64>) -> Vec<f64> {
         deconvolution::Lorentzian::par_superposition_vec(
-            &*chemical_shifts,
+            &chemical_shifts,
             self.inner.lorentzians(),
         )
     }
@@ -91,7 +91,7 @@ impl Deconvolution {
     pub(crate) fn write_json(&self, path: &str) {
         let serialized = match serde_json::to_string_pretty(self.as_ref()) {
             Ok(serialized) => serialized,
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         };
         std::fs::write(path, serialized).unwrap();
     }
@@ -101,14 +101,14 @@ impl Deconvolution {
 
         match serde_json::from_str::<deconvolution::Deconvolution>(&serialized) {
             Ok(deserialized) => deserialized.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 
     pub(crate) fn write_bin(&self, path: &str) {
         let serialized = match rmp_serde::to_vec(self.as_ref()) {
             Ok(serialized) => serialized,
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         };
         std::fs::write(path, serialized).unwrap();
     }
@@ -118,7 +118,7 @@ impl Deconvolution {
 
         match rmp_serde::from_slice::<deconvolution::Deconvolution>(&serialized) {
             Ok(deserialized) => deserialized.into(),
-            Err(error) => throw_r_error(format!("{}", error)),
+            Err(error) => throw_r_error(error.to_string()),
         }
     }
 }

@@ -49,7 +49,11 @@ Deconvoluter$fitting_settings <- function() .Call(wrap__Deconvoluter__fitting_se
 
 Deconvoluter$ignore_regions <- function() .Call(wrap__Deconvoluter__ignore_regions, self)
 
+Deconvoluter$set_identity_smoother <- function() invisible(.Call(wrap__Deconvoluter__set_identity_smoother, self))
+
 Deconvoluter$set_moving_average_smoother <- function(iterations, window_size) invisible(.Call(wrap__Deconvoluter__set_moving_average_smoother, self, iterations, window_size))
+
+Deconvoluter$set_detector_only <- function() invisible(.Call(wrap__Deconvoluter__set_detector_only, self))
 
 Deconvoluter$set_noise_score_selector <- function(threshold) invisible(.Call(wrap__Deconvoluter__set_noise_score_selector, self, threshold))
 
@@ -58,6 +62,10 @@ Deconvoluter$set_analytical_fitter <- function(iterations) invisible(.Call(wrap_
 Deconvoluter$add_ignore_region <- function(start, end) invisible(.Call(wrap__Deconvoluter__add_ignore_region, self, start, end))
 
 Deconvoluter$clear_ignore_regions <- function() invisible(.Call(wrap__Deconvoluter__clear_ignore_regions, self))
+
+Deconvoluter$set_threads <- function(threads) invisible(.Call(wrap__Deconvoluter__set_threads, self, threads))
+
+Deconvoluter$clear_threads <- function() invisible(.Call(wrap__Deconvoluter__clear_threads, self))
 
 Deconvoluter$deconvolute_spectrum <- function(spectrum) .Call(wrap__Deconvoluter__deconvolute_spectrum, self, spectrum)
 

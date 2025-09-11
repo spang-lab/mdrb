@@ -1,0 +1,17 @@
+#!/bin/sh
+
+echo "Starting cleanup"
+
+if test ! -f "src/rust/vendor.tar.xz"
+then
+    echo "Required file src/rust/vendor.tar.xz does not exist yet."
+    echo "Calling (cd src/rust && sh vendor.sh) to create it."
+    (cd src/rust && sh vendor.sh)
+fi
+
+rm -rf src/.cargo_tmp
+rm -rf src/rust/.cargo
+rm -rf src/rust/target
+rm -rf src/rust/vendor
+
+echo "Finished cleanup"
