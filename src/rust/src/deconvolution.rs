@@ -27,10 +27,18 @@ impl TryFrom<&Robj> for Deconvolution {
             let class = class.collect::<String>();
             match class.as_str() {
                 "Deconvolution" => (),
-                _ => return Err(Error::from(format!("Expected Deconvolution, got {:?}", class))),
+                _ => {
+                    return Err(Error::from(format!(
+                        "Expected Deconvolution, got {:?}",
+                        class
+                    )))
+                }
             }
         } else {
-            return Err(Error::from(format!("Expected Deconvolution, got {:?}", value)));
+            return Err(Error::from(format!(
+                "Expected Deconvolution, got {:?}",
+                value
+            )));
         }
         let ptr: ExternalPtr<Deconvolution> = value.try_into()?;
 
@@ -82,10 +90,7 @@ impl Deconvolution {
     }
 
     pub(crate) fn par_superposition_vec(&self, chemical_shifts: Vec<f64>) -> Vec<f64> {
-        deconvolution::Lorentzian::par_superposition_vec(
-            &chemical_shifts,
-            self.inner.lorentzians(),
-        )
+        deconvolution::Lorentzian::par_superposition_vec(&chemical_shifts, self.inner.lorentzians())
     }
 
     pub(crate) fn write_json(&self, path: &str) {

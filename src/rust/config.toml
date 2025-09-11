@@ -13,7 +13,7 @@
 [source.crates-io]
 replace-with = "vendored-sources"
 
-[source."git+https://github.com/SombkeMaximilian/metabodecon-rust"]
+[source."git+https://github.com/SombkeMaximilian/metabodecon-rust?branch=feature/alignment"]
 git = "https://github.com/SombkeMaximilian/metabodecon-rust"
 branch = "feature/alignment"
 replace-with = "vendored-sources"
