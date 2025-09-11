@@ -28,6 +28,10 @@ Aligner$set_distance_similarity_filter <- function(similarity_metric, max_distan
 
 Aligner$set_linear_programming_solver <- function() invisible(.Call(wrap__Aligner__set_linear_programming_solver, self))
 
+Aligner$set_threads <- function(threads) invisible(.Call(wrap__Aligner__set_threads, self, threads))
+
+Aligner$clear_threads <- function() invisible(.Call(wrap__Aligner__clear_threads, self))
+
 Aligner$align_deconvolutions <- function(deconvolutions) .Call(wrap__Aligner__align_deconvolutions, self, deconvolutions)
 
 #' @export
