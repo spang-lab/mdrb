@@ -109,7 +109,7 @@ checksum = "78ca9ab1a0babb1e7d5695e3530886289c18cf2f87ec19a575a0abdce112e3a3"
 [[package]]
 name = "metabodecon"
 version = "0.1.0"
-source = "git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=9cfd0bbd718ffc16d333780a449407b25e5f6d84#9cfd0bbd718ffc16d333780a449407b25e5f6d84"
+source = "git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=5695282724635c2085b5232635793f0b7cf73134#5695282724635c2085b5232635793f0b7cf73134"
 dependencies = [
  "byteorder",
  "num-traits",
