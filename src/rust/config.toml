@@ -13,9 +13,9 @@
 [source.crates-io]
 replace-with = "vendored-sources"
 
-[source."git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=5695282724635c2085b5232635793f0b7cf73134"]
+[source."git+https://github.com/SombkeMaximilian/metabodecon-rust?rev=262d82dc438da9d069063c1ed95856baffebab7f"]
 git = "https://github.com/SombkeMaximilian/metabodecon-rust"
-rev = "5695282724635c2085b5232635793f0b7cf73134"
+rev = "262d82dc438da9d069063c1ed95856baffebab7f"
 replace-with = "vendored-sources"
 
 [source.vendored-sources]
