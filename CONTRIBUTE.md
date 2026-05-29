@@ -59,6 +59,7 @@ After every update to the package, you should:
 2.  run the commands below to do a formal check of the package
 
 ``` r
+
 rextendr::document() # Build the shared Rust object and R wrapper functions
 devtools::document() # Build documentation in man folder
 devtools::spell_check() # Check spelling (add false positives to inst/WORDLIST)
@@ -91,6 +92,7 @@ package to CRAN, they should:
     release it to CRAN
 
 ``` r
+
 # Check spelling and URLs. False positive findings of spell check should be
 # added to inst/WORDLIST.
 devtools::spell_check()
@@ -132,6 +134,7 @@ devtools::submit_cran()
 ## How to use the Rust bindings from R?
 
 ``` r
+
 # Read the spectra
 spectra_path <- metabodecon::metabodecon_file("bruker/urine")
 metabodecon_spectra <- metabodecon::read_spectra(spectra_path, "bruker", 10, 10)

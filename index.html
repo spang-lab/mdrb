@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Metabodecon Rust Backend • mdrb</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Metabodecon Rust Backend">
 <meta name="description" content='Provides a high-performance Rust backend for the metabodecon package (&lt;https://github.com/spang-lab/metabodecon&gt;), enabling efficient deconvolution, alignment, and post-processing of 1-dimensional (1D) nuclear magnetic resonance (NMR) spectra. The package wraps optimized Rust functions to improve performance and scalability for large datasets. The recommended way to use *mdrb* is by installing *metabodecon* and setting the backend argument to "rust" when calling its functions. The Rust part of the package is based on the metabodecon-rust crate (&lt;https://github.com/SombkeMaximilian/metabodecon-rust&gt;).'>
@@ -22,7 +22,7 @@
 
     <a class="navbar-brand me-2" href="index.html">mdrb</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.3</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,17 +57,22 @@
 </h2>
 <p>To install the package from a pre-compiled binary:</p>
 <ol style="list-style-type: decimal">
-<li>Install R version 4.2 or higher from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>
-</li>
-<li>Enter the following commands in a running R session: <code>R     install.packages("mdrb", type="binary", repos="https://spang-lab.r-universe.dev")</code>
+<li><p>Install R version 4.2 or higher from <a href="https://cran.r-project.org/" class="external-link">CRAN</a></p></li>
+<li>
+<p>Enter the following commands in a running R session:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mdrb"</span>, type<span class="op">=</span><span class="st">"binary"</span>, repos<span class="op">=</span><span class="st">"https://spang-lab.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ol>
 <p>To install from source:</p>
 <ol style="list-style-type: decimal">
-<li>Install R version 4.2 or higher from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</li>
-<li>If you’re on Windows install RTools from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</li>
-<li>Install the Rust toolchain from <a href="https://rustup.rs/" class="external-link">rustup.rs</a>.</li>
-<li>Install the <em>mdrb</em> package by running the following commands in R: <code>R     install.packages("mdrb", type="source", repos="https://spang-lab.r-universe.dev")</code>
+<li><p>Install R version 4.2 or higher from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</p></li>
+<li><p>If you’re on Windows install RTools from <a href="https://cran.r-project.org/" class="external-link">CRAN</a>.</p></li>
+<li><p>Install the Rust toolchain from <a href="https://rustup.rs/" class="external-link">rustup.rs</a>.</p></li>
+<li>
+<p>Install the <em>mdrb</em> package by running the following commands in R:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"mdrb"</span>, type<span class="op">=</span><span class="st">"source"</span>, repos<span class="op">=</span><span class="st">"https://spang-lab.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
 </li>
 </ol>
 </div>
@@ -75,7 +80,7 @@
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
 </h2>
 <p><em>mdrb</em> is primarily intended to be used through the frontend functions provided by the <em>metabodecon</em> package. However, if you prefer to use the package directly, you can follow the example below:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">spectrum_path</span> <span class="op">&lt;-</span> <span class="fu">metabodecon</span><span class="fu">::</span><span class="fu"><a href="https://spang-lab.github.io/metabodecon/reference/metabodecon_file.html" class="external-link">metabodecon_file</a></span><span class="op">(</span><span class="st">"bruker/urine/urine_1"</span><span class="op">)</span></span>
 <span><span class="va">r_spectrum</span> <span class="op">&lt;-</span> <span class="fu">metabodecon</span><span class="fu">::</span><span class="fu"><a href="https://spang-lab.github.io/metabodecon/reference/read_spectrum.html" class="external-link">read_spectrum</a></span><span class="op">(</span><span class="va">spectrum_path</span><span class="op">)</span></span>
 <span></span>
